@@ -1,0 +1,914 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지원이 생일 대작전</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+:root {
+  --pink: #ff76a9;
+  --purple: #9b83e9;
+  --yellow: #ffe17a;
+  --dark: #252238;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #fff0f5;
+  color: var(--dark);
+  font-family: 'Jua', 'Malgun Gothic', sans-serif;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+}
+
+button:active {
+  transform: scale(.96);
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 14px;
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  border: 3px solid #ffd0e1;
+  border-radius: 28px;
+  padding: 27px 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px #e9a8c34d;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.tag {
+  display: inline-block;
+  background: #ffe2ed;
+  color: #d94d86;
+  border-radius: 30px;
+  padding: 7px 14px;
+  font-size: 13px;
+}
+
+h1 {
+  font-size: 31px;
+  line-height: 1.4;
+  margin: 15px 0;
+}
+
+h2 {
+  font-size: 23px;
+}
+
+p {
+  line-height: 1.7;
+}
+
+.sub {
+  color: #9a8a9a;
+  font-size: 14px;
+}
+
+.main-btn {
+  background: linear-gradient(135deg, #ff75a8, #ed5792);
+  color: white;
+  padding: 16px 25px;
+  border-radius: 30px;
+  font-size: 18px;
+  width: 100%;
+  margin-top: 15px;
+  box-shadow: 0 5px 12px #ffb2cf;
+}
+
+.dark-btn {
+  background: var(--dark);
+  color: white;
+  padding: 14px 22px;
+  border-radius: 15px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.option {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: #fff0f5;
+  border: 2px solid #ffd6e5;
+  border-radius: 15px;
+  margin: 10px 0;
+  color: #674258;
+  font-size: 16px;
+  text-align: left;
+}
+
+.option:hover {
+  background: #ffe0ec;
+}
+
+.option:disabled {
+  opacity: .65;
+  cursor: default;
+}
+
+.news {
+  background: #252238;
+  color: white;
+  padding: 25px 15px;
+  border-radius: 20px;
+}
+
+.news h1 {
+  color: #ffe17a;
+}
+
+.news .breaking {
+  background: #e83c53;
+  padding: 7px 15px;
+  border-radius: 5px;
+  display: inline-block;
+  letter-spacing: 2px;
+}
+
+.big-emoji {
+  font-size: 75px;
+  margin: 20px;
+}
+
+.progress {
+  width: 100%;
+  height: 10px;
+  background: #ffe4ef;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+
+.bar {
+  height: 100%;
+  width: 0%;
+  background: #ff70a5;
+  transition: width .3s;
+}
+
+.feedback {
+  background: #fff0f5;
+  padding: 15px;
+  border-radius: 15px;
+  margin-top: 15px;
+  line-height: 1.7;
+}
+
+.gift-box {
+  font-size: 95px;
+  margin: 20px;
+  animation: shake 1s infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-7deg); }
+  75% { transform: rotate(7deg); }
+}
+
+.gift-result {
+  background: #fff2d5;
+  border: 2px dashed #f2b94b;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.gift-result .emoji {
+  font-size: 65px;
+}
+
+.game-area {
+  height: 330px;
+  background: linear-gradient(180deg, #fce4f1, #e9e3ff);
+  border: 3px solid #e5c8ed;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.target {
+  position: absolute;
+  border: none;
+  background: transparent;
+  font-size: 35px;
+  padding: 0;
+  animation: pop .3s;
+  touch-action: manipulation;
+}
+
+@keyframes pop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-around;
+  background: #fff0f5;
+  border-radius: 15px;
+  padding: 12px;
+  font-size: 16px;
+}
+
+.final {
+  background: linear-gradient(135deg, #ffebf3, #fff7d8);
+  border-radius: 20px;
+  padding: 22px 15px;
+}
+
+.final h1 {
+  color: #e34f91;
+}
+
+.float {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  bottom: -40px;
+  animation: floatUp 4s linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.footer {
+  margin-top: 25px;
+  color: #b9a0b0;
+  font-size: 12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+<div class="card">
+
+<!-- 1. 첫 화면 -->
+
+<section id="home">
+
+  <div class="news">
+    <div class="breaking">🚨 BREAKING NEWS 🚨</div>
+
+    <h1>긴급 속보입니다!!</h1>
+
+    <div class="big-emoji">📢</div>
+
+    <h2>오늘 지원이 생일로 밝혀져...</h2>
+
+    <p>
+      전국적으로 축하해야 한다는<br>
+      여론이 급속도로 확산되고 있습니다.
+    </p>
+
+    <h2 style="color:#ffe17a;">
+      축하 의무 발생 D-DAY
+    </h2>
+  </div>
+
+  <p>
+    오늘의 주인공 지원이를 위한<br>
+    특별 생일 이벤트에 초대합니다.
+  </p>
+
+  <button class="main-btn" onclick="startQuiz()">
+    생일 이벤트 입장하기 🎉
+  </button>
+
+  <div class="footer">
+    본 사이트는 지원이의 생일을 축하하기 위해 제작되었습니다.
+  </div>
+
+</section>
+
+
+<!-- 2. 생일 능력고사 -->
+
+<section id="quiz" class="hidden">
+
+  <div class="tag">제1교시 · 지원이 능력고사</div>
+
+  <h1>📝 생일 특별 능력고사</h1>
+
+  <p class="sub">
+    총 3문제 / 난이도: 지원이도 풀 수 있음
+  </p>
+
+  <div class="progress">
+    <div class="bar" id="quizBar"></div>
+  </div>
+
+  <p id="questionNumber">문제 1 / 3</p>
+
+  <h2 id="question"></h2>
+
+  <div id="options"></div>
+
+  <div id="quizFeedback" class="feedback hidden"></div>
+
+  <button id="nextQuestion" class="main-btn hidden"
+    onclick="nextQuiz()">
+    다음 문제로 이동 →
+  </button>
+
+</section>
+
+
+<!-- 3. 랜덤 선물 뽑기 -->
+
+<section id="lottery" class="hidden">
+
+  <div class="tag">제2교시 · 운빨 테스트</div>
+
+  <h1>🎰 지원이 생일 선물 자판기</h1>
+
+  <p>
+    버튼을 눌러 오늘의 선물을 뽑으세요.<br>
+    꽝은 없습니다. (아마도)
+  </p>
+
+  <div class="gift-box" id="giftBox">🎁</div>
+
+  <button class="main-btn" id="drawButton"
+    onclick="drawGift()">
+    선물 뽑기!!
+  </button>
+
+  <div id="giftResult" class="gift-result hidden">
+
+    <div class="emoji" id="giftEmoji"></div>
+
+    <h2 id="giftName"></h2>
+
+    <p id="giftDescription"></p>
+
+  </div>
+
+  <button id="toGame" class="dark-btn hidden"
+    onclick="startGame()">
+    다음 이벤트로 이동하기 →
+  </button>
+
+</section>
+
+
+<!-- 4. 미니게임 -->
+
+<section id="game" class="hidden">
+
+  <div class="tag">제3교시 · 체력 테스트</div>
+
+  <h1>💗 하트를 사수하라!</h1>
+
+  <p class="sub">
+    15초 안에 하트 10개를 모아라!<br>
+    지원이의 생일 축하 에너지를 모으세요.
+  </p>
+
+  <div class="game-info">
+    <div>⏰ <span id="time">15</span>초</div>
+    <div>💗 점수 <span id="score">0</span>/10</div>
+  </div>
+
+  <div class="game-area" id="gameArea">
+    <p style="padding-top:120px; color:#9d82a5;">
+      시작 버튼을 눌러주세요!
+    </p>
+  </div>
+
+  <button class="main-btn" id="gameButton"
+    onclick="playGame()">
+    게임 시작하기 🎮
+  </button>
+
+  <div id="gameResult" class="feedback hidden"></div>
+
+  <button id="toFinal" class="dark-btn hidden"
+    onclick="showFinal()">
+    최종 결과 확인하기 🏆
+  </button>
+
+</section>
+
+
+<!-- 5. 최종 축하 화면 -->
+
+<section id="final" class="hidden">
+
+  <div class="final">
+
+    <div class="big-emoji">👑🎂👑</div>
+
+    <div class="tag">2026 SPECIAL AWARD</div>
+
+    <h1>지원이 생일 축하해!!!</h1>
+
+    <h2>🏆 특별 임명장 🏆</h2>
+
+    <p>
+      위 사람은 오늘 생일을 맞이하여<br>
+      다음과 같은 자격을 인정받았으므로<br>
+      이에 임명장을 수여합니다.
+    </p>
+
+    <div class="feedback">
+
+      👑 오늘의 주인공<br><br>
+
+      🍰 케이크 무제한 섭취권<br><br>
+
+      💰 갑자기 부자 될 권리<br><br>
+
+      💗 하루 종일 축하받을 권리<br><br>
+
+      🎉 아무 이유 없이 행복할 권리
+
+    </div>
+
+    <h2 style="color:#e34f91;">
+      지원아 생일 축하해 ❤️
+    </h2>
+
+    <p>
+      앞으로도 건강하고 행복하게 살자!<br>
+      오늘은 네가 제일 잘나가는 날이야.<br>
+      생일 축하한다 이 친구야 😎
+    </p>
+
+    <div class="big-emoji">🎉🎊🎂🎊🎉</div>
+
+  </div>
+
+  <button class="main-btn" onclick="celebrate()">
+    축하 한 번 더 받기 💗
+  </button>
+
+  <div class="footer">
+    제작자: 지원이의 친구들(?) 중 한 명
+  </div>
+
+</section>
+
+</div>
+</div>
+
+
+<script>
+
+// 화면 전환
+
+function showSection(id) {
+
+  document.querySelectorAll(".card > section")
+    .forEach(section => section.classList.add("hidden"));
+
+  document.getElementById(id)
+    .classList.remove("hidden");
+
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+
+// 1. 능력고사
+
+const questions = [
+
+  {
+    q: "오늘 지원이가 받아야 할 것은?",
+    options: [
+      "① 맛있는 음식",
+      "② 생일 선물",
+      "③ 친구들의 축하",
+      "④ 위의 모든 것 + 무한한 행복"
+    ],
+    answer: 3,
+    comment: "정답! 지원이는 오늘 모든 행복을 누릴 자격이 있습니다. (이의 제기 불가)"
+  },
+
+  {
+    q: "오늘 지원이의 신분은?",
+    options: [
+      "① 평범한 사람",
+      "② 지나가는 행인",
+      "③ 오늘의 주인공",
+      "④ 세상에서 제일 귀한 생일자"
+    ],
+    answer: 3,
+    comment: "정답! 오늘만큼은 지원이가 왕입니다. 내일은 다시 현실로..."
+  },
+
+  {
+    q: "생일 축하를 받았을 때 올바른 행동은?",
+    options: [
+      "① 고맙다고 한다",
+      "② 케이크를 먹는다",
+      "③ 선물을 요구한다",
+      "④ 전부 실행한다"
+    ],
+    answer: 3,
+    comment: "완벽합니다. 특히 ④번은 아주 모범적인 생일자의 태도입니다."
+  }
+
+];
+
+let qIndex = 0;
+let quizScore = 0;
+
+function startQuiz() {
+  qIndex = 0;
+  quizScore = 0;
+  showSection("quiz");
+  renderQuiz();
+}
+
+function renderQuiz() {
+
+  const q = questions[qIndex];
+
+  document.getElementById("questionNumber").textContent =
+    `문제 ${qIndex + 1} / ${questions.length}`;
+
+  document.getElementById("quizBar").style.width =
+    ((qIndex) / questions.length * 100) + "%";
+
+  document.getElementById("question").textContent = q.q;
+
+  document.getElementById("quizFeedback").classList.add("hidden");
+  document.getElementById("nextQuestion").classList.add("hidden");
+
+  const options = document.getElementById("options");
+  options.innerHTML = "";
+
+  q.options.forEach((option, index) => {
+
+    const btn = document.createElement("button");
+
+    btn.className = "option";
+    btn.textContent = option;
+
+    btn.onclick = () => answerQuiz(index);
+
+    options.appendChild(btn);
+
+  });
+}
+
+function answerQuiz(index) {
+
+  const q = questions[qIndex];
+
+  if (index === q.answer) {
+    quizScore++;
+  }
+
+  const buttons = document.querySelectorAll("#options button");
+
+  buttons.forEach((btn, i) => {
+    btn.disabled = true;
+
+    if (i === q.answer) {
+      btn.style.background = "#d8f5dc";
+      btn.style.borderColor = "#8bc99a";
+    }
+  });
+
+  const feedback = document.getElementById("quizFeedback");
+
+  feedback.classList.remove("hidden");
+
+  feedback.innerHTML =
+    (index === q.answer ? "⭕ 정답!" : "❌ 오답! 정답은 ④번!") +
+    "<br>" + q.comment;
+
+  document.getElementById("nextQuestion").classList.remove("hidden");
+
+  document.getElementById("nextQuestion").textContent =
+    qIndex === questions.length - 1
+      ? "시험 결과 확인하기 🎉"
+      : "다음 문제로 이동 →";
+
+}
+
+function nextQuiz() {
+
+  qIndex++;
+
+  if (qIndex < questions.length) {
+    renderQuiz();
+  } else {
+    showLottery();
+  }
+
+}
+
+function showLottery() {
+  showSection("lottery");
+}
+
+
+// 2. 랜덤 선물 뽑기
+
+const gifts = [
+
+  {
+    emoji: "🍰",
+    name: "케이크 무제한 이용권",
+    description: "오늘 칼로리는 0입니다. 과학적 근거는 없지만 아무튼 그렇습니다."
+  },
+
+  {
+    emoji: "💰",
+    name: "갑자기 부자 될 운",
+    description: "통장 잔고가 늘어날 가능성은 희박하지만 희망은 있습니다."
+  },
+
+  {
+    emoji: "👑",
+    name: "하루 공주 대접권",
+    description: "오늘 하루 모든 사람은 지원이를 존중해야 합니다."
+  },
+
+  {
+    emoji: "🛌",
+    name: "아무것도 안 해도 되는 쿠폰",
+    description: "오늘의 할 일: 숨 쉬기, 밥 먹기, 행복하기."
+  },
+
+  {
+    emoji: "💗",
+    name: "친구 사랑 무한 충전권",
+    description: "사용 기한: 평생. 환불 불가. 양도 불가."
+  },
+
+  {
+    emoji: "🎁",
+    name: "실물 없는 마음의 선물",
+    description: "배송비 무료, 실물 배송은 지원하지 않습니다."
+  }
+
+];
+
+let drawn = false;
+
+function drawGift() {
+
+  if (drawn) return;
+
+  drawn = true;
+
+  const button = document.getElementById("drawButton");
+  const box = document.getElementById("giftBox");
+
+  button.disabled = true;
+  button.textContent = "선물 확인 중...";
+
+  box.textContent = "🎰";
+
+  setTimeout(() => {
+
+    const gift = gifts[Math.floor(Math.random() * gifts.length)];
+
+    box.textContent = "✨";
+
+    document.getElementById("giftEmoji").textContent = gift.emoji;
+    document.getElementById("giftName").textContent = gift.name;
+    document.getElementById("giftDescription").textContent =
+      gift.description;
+
+    document.getElementById("giftResult")
+      .classList.remove("hidden");
+
+    button.textContent = "선물 수령 완료!";
+
+    document.getElementById("toGame")
+      .classList.remove("hidden");
+
+    confetti(30);
+
+  }, 1200);
+
+}
+
+function startGame() {
+
+  showSection("game");
+
+  document.getElementById("gameResult").classList.add("hidden");
+  document.getElementById("toFinal").classList.add("hidden");
+
+  document.getElementById("gameArea").innerHTML =
+    '<p style="padding-top:120px;color:#9d82a5;">시작 버튼을 눌러주세요!</p>';
+
+  document.getElementById("gameButton").disabled = false;
+  document.getElementById("gameButton").textContent = "게임 시작하기 🎮";
+
+  document.getElementById("score").textContent = "0";
+  document.getElementById("time").textContent = "15";
+
+}
+
+
+// 3. 하트 미니게임
+
+let score = 0;
+let timeLeft = 15;
+let gameTimer = null;
+let spawnTimer = null;
+let playing = false;
+
+function playGame() {
+
+  if (playing) return;
+
+  playing = true;
+  score = 0;
+  timeLeft = 15;
+
+  const area = document.getElementById("gameArea");
+
+  area.innerHTML = "";
+
+  document.getElementById("score").textContent = score;
+  document.getElementById("time").textContent = timeLeft;
+
+  document.getElementById("gameButton").disabled = true;
+  document.getElementById("gameButton").textContent = "게임 진행 중!";
+
+  spawnHeart();
+
+  spawnTimer = setInterval(spawnHeart, 650);
+
+  gameTimer = setInterval(() => {
+
+    timeLeft--;
+
+    document.getElementById("time").textContent = timeLeft;
+
+    if (timeLeft <= 0 || score >= 10) {
+      endGame();
+    }
+
+  }, 1000);
+
+}
+
+function spawnHeart() {
+
+  if (!playing) return;
+
+  const area = document.getElementById("gameArea");
+
+  const heart = document.createElement("button");
+
+  heart.className = "target";
+  heart.textContent = ["💗", "💖", "💕", "❤️"][
+    Math.floor(Math.random() * 4)
+  ];
+
+  heart.style.left = Math.random() * (area.clientWidth - 50) + "px";
+  heart.style.top = Math.random() * (area.clientHeight - 55) + "px";
+
+  heart.onclick = () => {
+
+    if (!playing) return;
+
+    score++;
+
+    document.getElementById("score").textContent = score;
+
+    heart.remove();
+
+    if (score >= 10) {
+      endGame();
+    }
+
+  };
+
+  area.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 1800);
+
+}
+
+function endGame() {
+
+  if (!playing) return;
+
+  playing = false;
+
+  clearInterval(gameTimer);
+  clearInterval(spawnTimer);
+
+  document.getElementById("gameArea").innerHTML = "";
+
+  const result = document.getElementById("gameResult");
+
+  result.classList.remove("hidden");
+
+  let message = "";
+
+  if (score >= 10) {
+    message = "🏆 완벽한 성공! 지원이의 생일 에너지 MAX!!";
+    confetti(60);
+  } else if (score >= 5) {
+    message = "👏 제법인데? 지원이 오늘 컨디션 좋은 듯!";
+  } else {
+    message = "😂 하트도 못 잡다니... 생일이라고 봐준다.";
+  }
+
+  result.innerHTML =
+    `<h2>최종 점수: ${score}점</h2><p>${message}</p>`;
+
+  document.getElementById("gameButton").textContent = "게임 종료!";
+  document.getElementById("toFinal").classList.remove("hidden");
+
+}
+
+
+// 4. 최종 화면
+
+function showFinal() {
+
+  showSection("final");
+
+  confetti(70);
+
+}
+
+
+// 축하 효과
+
+function confetti(count) {
+
+  const symbols = ["💗", "🎉", "✨", "💕", "🎊", "🌸"];
+
+  for (let i = 0; i < count; i++) {
+
+    setTimeout(() => {
+
+      const item = document.createElement("div");
+
+      item.className = "float";
+
+      item.textContent =
+        symbols[Math.floor(Math.random() * symbols.length)];
+
+      item.style.left = Math.random() * 100 + "vw";
+
+      item.style.fontSize =
+        (18 + Math.random() * 25) + "px";
+
+      document.body.appendChild(item);
+
+      setTimeout(() => item.remove(), 4000);
+
+    }, i * 25);
+
+  }
+
+}
+
+function celebrate() {
+  confetti(100);
+}
+
+</script>
+
+</body>
+</html>
